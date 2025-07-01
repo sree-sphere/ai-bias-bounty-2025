@@ -110,29 +110,22 @@ Participants will:
 
 # 🏆 Judging Criteria
 
-**1. Accuracy of Bias Identification (30%)**
+Our judging panel is made up of industry leaders, data scientists, AI ethics professionals, and engineers across tech firms like Meta, Google, Amazon, Visa, JPMorgan, and Walmart, who will evaluate your work based on the following key areas. Each area reflects both the technical quality of your work and your ability to think critically about fairness, impact, and communication.
 
-How effectively does the submission identify multiple types of bias, provide supporting evidence, and handle potential errors?
+1. Bias Identification (30 points)
+   We’re looking for how well you detected and explained patterns of bias in the dataset or model predictions.
+Strong entries will show clear evidence of bias across multiple demographic groups (e.g., gender, race, income) and thoughtfully discuss false positives/negatives and their real-world implications.
 
-**2. Model Design and Justification (20%)**
+2. Model Design & Justification (30 points)
+   Your model doesn’t need to be perfect, but your choices should be intentional. This includes the algorithms you used, the features you engineered, and how you approached fairness. We value models that are interpretable and grounded in thoughtful design, not just performance.
 
-How appropriate is the chosen model for the task, and how well is the design and reasoning behind it explained?
+3. Interpretability & Insights (20 points)
+   Judges will be looking at how well you explain your results.
+Use charts, plots, tools like SHAP/LIME, or group breakdowns to show what’s happening inside your model, especially when it behaves unfairly.
 
-**3. Coverage of Bias Types (15%)**
+4. Presentation & Clarity (20 points)
+   Clear communication is key. Your README, demo video, and any supporting materials should help others understand your work without confusion. The best submissions will be organized, polished, and easy to follow, even for non-technical reviewers.
 
-To what extent does the submission address a wide range of bias categories, from minimal to comprehensive coverage?
-
-**4. Interpretability and Insight (15%)**
-
-How clearly and insightfully does the submission explain the identified biases, especially through tools, visualizations, or interpretability techniques?
-
-**5. Mitigation Suggestions or Solutions (10%)**
-
-Does the submission offer thoughtful and practical suggestions to reduce or mitigate the identified biases, including improvements to the model?
-
-**6. Presentation and Clarity (10%)**
-
-How clearly is the submission presented through visuals, written documentation, and/or demonstrations?
 
 # 📣 Stay Connected
 
