@@ -1,146 +1,206 @@
-# 📂 AI Bias Bounty Hackathon
+# Loan Approval Fairness Analysis
 
-Welcome to the **2025 AI Bias Bounty Hackathon**!
+A comprehensive ML project that predicts loan approvals while detecting and analyzing algorithmic bias across demographic groups.
 
-Join us as we explore, detect, and report biases in AI models and datasets. This is an exciting opportunity to contribute to ethical AI while building your skills and network.
+## Problem Statement
 
+The financial sector has long faced scrutiny over systemic inequities embedded in its decision-making processes, particularly in loan approvals. Mortgage lending, in particular, reveals deeply entrenched disparities across race, gender, age, and geography. In response to increasing demand for fairness in AI-powered decision systems, this track is designed to simulate a real-world audit scenario, where participants step into the role of ethical model builders, bias investigators, and fairness advocates. 
 
-# 🚀 Overview
+Loan approval systems can perpetuate historical biases and discriminate against protected groups, leading to unfair lending practices. This project addresses the critical need to:
 
-The **AI Bias Bounty Hackathon** challenges participants to build machine learning models and generate technical reports that identifies bias within provided datasets. The goal is to encourage the development of fair and responsible AI systems.
+- **Detect algorithmic bias** in loan approval decisions
+- **Quantify fairness disparities** across demographic groups (gender, race, disability status, etc.)
+- **Build transparent models** that balance predictive accuracy with fairness considerations
+- **Provide actionable insights** for bias mitigation in financial services
 
-**Devpost**: [AI Bias Bounty Hackathon on Devpost](https://ai-bias-bounty-hackathon.devpost.com/)
+The challenge involves analyzing a loan dataset with sensitive attributes and building a model that not only predicts loan approvals accurately but also identifies and visualizes potential discriminatory patterns.
 
-**Official Website**: [Hack the Fest](https://hackthefest.com/)
+## Model Approach & Fairness Considerations
 
+Note: More elaborated explanation on my approach and findings in Additional_Report.md
 
-# 🗓️ Key Dates
+### Machine Learning Pipeline
 
-| Schedule                        | Date                               |
-| ------------------------------- | ---------------------------------- |
-| Registration Period             | *\[June 4 – June 27, 2025]*        |
-| Kickoff Event                   | *\[June 28, 2025]*                 |
-| Onboarding Period               | *\[June 28 – June 30, 2025]*       |
-| Hackathon Launch                | *\[July 1 – July 3, 2025]*   |
-| Submission Deadline             | *\[July 3, 2025 11:59pm CST]*      |
-| Judging Period                  | *\[July 5 – July 15, 2025]*        |
-| Winners Announced               | *\[July 17, 2025]*                 |
+1. **Data Preprocessing & Feature Engineering**
+   - KNN imputation for missing values
+   - Binary encoding for sensitive attributes
+   - One-hot encoding for categorical variables
+   - Standard scaling for numerical features
 
+2. **Feature Selection**
+   - SHAP (SHapley Additive exPlanations) based feature importance
+   - Linear explainer for transparent feature ranking
+   - Top 20 most important features selected for model training
 
-# 🎯 Objectives
+3. **Model Training**
+   - Logistic Regression with L1 regularization
+   - Class balancing to handle imbalanced target variable
+   - Cross-validation for robust performance estimation
 
-Participants will:
+### Fairness Analysis Framework
 
-- Build AI models to analyze and detect bias in provided datasets.
+#### Bias Detection Methods
+- **Univariate Analysis**: Approval rates across individual demographic groups
+- **Intersectional Analysis**: Multi-dimensional bias detection (e.g., Gender × Race × Disability)
+- **Disparate Impact**: Statistical parity assessment using AIF360 metrics
+- **False Positive/Negative Rates**: Error rate disparities across groups
 
-- Generate detailed, well-structured technical reports documenting bias detection.
+#### Fairness Metrics Implemented
+- **Selection Rate**: Proportion of positive predictions per group
+- **False Negative Rate**: Missed opportunities for each demographic
+- **Disparate Impact Ratio**: Ratio of approval rates between groups
+- **Statistical Parity**: Equal treatment regardless of sensitive attributes
 
-- Present solutions that contribute to fairness and accountability in AI.
+#### Visualization Strategy
+- Approval rate bar charts by demographic groups
+- SHAP feature importance plots
+- Prediction probability distributions
+- Intersectional bias heatmaps
 
+## Key Findings
 
-# 🛠️ Getting Started
+The analysis reveals several concerning patterns:
 
-### 1. Register
+- **Gender Disparities**: Significant differences in approval rates between male and female applicants
+- **Racial Bias**: Systematic disadvantages for certain racial groups
+- **Intersectional Effects**: Compounded discrimination for individuals with multiple protected characteristics
+- **Feature Impact**: Criminal record and credit score show disproportionate influence on certain groups
 
-- Sign up on our [official website](https://hackthefest.com/) or [Devpost](https://ai-bias-bounty-hackathon.devpost.com/) to officially enter the hackathon.
+## Tools & Libraries Used
 
-### 2. Dataset
+### Core Machine Learning
+- **scikit-learn**: Model training, preprocessing, and evaluation
+- **pandas**: Data manipulation and analysis
+- **numpy**: Numerical computations
 
-- You will receive access to the dataset upon registration.
+### Fairness & Bias Detection
+- **AIF360**: IBM's comprehensive fairness toolkit
+- **Fairlearn**: Microsoft's fairness assessment library
+- **SHAP**: Model explainability and feature importance
 
-### 3. Deliverables
+### Visualization & Analysis
+- **matplotlib**: Static plotting and visualizations
+- **seaborn**: Statistical data visualization
+- **tabulate**: Formatted table outputs
 
-- `loan_model.py` — Python script containing
-    
-    - Data cleaning and preprocessing steps
-    - Feature engineering (e.g., encoding, binning)
-    - Model training (you may use Logistic Regression, Random Forest, XGBoost, or other classification models)
-    - Fairness auditing and bias detection
-    - Well-commented, readable code
+### Data Processing
+- **KNNImputer**: Missing value imputation
+- **StandardScaler**: Feature normalization
 
-- `submission.csv` — Model's output on the provided test dataset
+## Project Structure
 
-    - A 2-column CSV:
-      - `ID` – test set identifier
-      - `LoanApproved` – predicted value (0 or 1)
+```
+ai-bias-bounty-2025/
+├── dataset/
+│   ├── loan_access_dataset.csv
+│   └── test.csv
+├── hackathon_report.md
+├── images/
+│   ├── bias_visualization.png
+│   ├── categorical_analysis.png
+│   ├── continuous_analysis.png
+│   ├── probability_distribution.png
+│   └── shap_feature_importance.png
+├── loan_model.ipynb
+├── loan_model.py
+├── README.md
+├── requirements.txt
+└── results/
+    ├── fairness_analysis.csv
+    ├── submission.csv
+    ├── training_results.csv
+    └── trained_model.pkl
+```
 
-- Detailed technical report (`ai_risk_report.docx` or `.pdf` or `.md`) using the provided AI Risk Report template
+## Usage
 
-- Visual Evidence of Bias: Submit one or both of the following:
+### Installation
 
-    - `bias_visualization.png` — a clear, readable graphic that illustrates discovered bias
-    - Or a `chart/folder` containing:
-      - Approval rate bar plots by demographic
-      - SHAP/LIME feature importance charts
-      - False positive/negative disparities
-      - Any visual insights related to model behavior or group fairness
-    
-    Label every chart clearly. These visuals will help judges understand your biased insights at a glance.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sree-sphere/ai-bias-bounty-2025.git
+   cd ai-bias-bounty-2025
+   ```
 
-- (Optional) `loan_model.ipynb` — Clean and reproducible Jupyter Notebook
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   pip install \'aif360[AdversarialDebiasing]\' \'aif360[inFairness]\'
+   ```
 
-    - Include EDA, model pipeline, audits, and final results
-    - Clear markdown explanations and cell comments encouraged
+3. **Run the model**
+    ```bash
+    python loan_model.py
+    ```
+    ```Note: Might require to close the image files if opened automatically```
 
-- `README.md` — Describes:
+## Output Files Description
 
-    - The problem you addressed
-    - Summary of your model approach and fairness considerations
-    - Instructions to run the project & tools/libraries used
-    - GitHub repo should be public and well-structured
+### Primary Deliverables
 
-# 📑 Submission Guidelines
+1. **submission.csv**  
+   - Contains test‐set predictions in the competition format  
+   - Columns:  
+     - `ID` — identifier for each test record  
+     - `LoanApproved` — model prediction (0 = Denied, 1 = Approved)
 
-1. Submissions is made on GitHub.
+2. **bias_visualization.png**  
+   - A publication‑quality figure summarizing key bias findings  
+   - Includes bar charts of approval rates across demographic groups  
+   - All axes are labeled and statistical annotations are provided
 
-2. Include:
+3. **training_results.csv**  
+   - Detailed model outputs on the training set  
+   - Columns include:  
+     - True labels and predicted labels  
+     - Predicted probabilities  
+     - Values of the SHAP‑selected features
 
-    - Source code
+### Additional Analysis Files
 
-    - Output file
+- **results/fairness_analysis.csv**  
+  - Fairness metrics computed for each sensitive group (selection rate, false negative rate, disparate impact)
 
-    - Technical report
+- **results/trained_model.pkl**  
+  - Serialized `LogisticRegression` model and preprocessing pipeline for reproducibility
 
-    - Demo video (required)
+- **images/**  
+  - A comprehensive set of charts for bias analysis and model explainability  
 
-3. Follow all provided instructions and deadlines.
+---
 
-4. After completing your GitHub repo, you must submit the repository link using the official [Final Submission Form](https://forms.gle/ES3CY59jEjdaqCvBA). This is how your entry is registered for judging.
+## Interpreting Results
 
+### Model Performance
 
-# 🏆 Judging Criteria
+- **Accuracy** The overall proportion of correct predictions.
 
-Our judging panel is made up of industry leaders, data scientists, AI ethics professionals, and engineers across tech firms like Meta, Google, Amazon, Visa, JPMorgan, and Walmart, who will evaluate your work based on the following key areas. Each area reflects both the technical quality of your work and your ability to think critically about fairness, impact, and communication.
+- **Balanced Accuracy**: The average of sensitivity (true positive rate) and specificity (true negative rate), accounting for class imbalance.
 
-1. Bias Identification (30 points)
-   We’re looking for how well you detected and explained patterns of bias in the dataset or model predictions.
-Strong entries will show clear evidence of bias across multiple demographic groups (e.g., gender, race, income) and thoughtfully discuss false positives/negatives and their real-world implications.
+- **AUC‑ROC**: The model’s ability to distinguish between approved and denied cases across all classification thresholds.
 
-2. Model Design & Justification (30 points)
-   Your model doesn’t need to be perfect, but your choices should be intentional. This includes the algorithms you used, the features you engineered, and how you approached fairness. We value models that are interpretable and grounded in thoughtful design, not just performance.
+### Fairness Metrics
 
-3. Interpretability & Insights (20 points)
-   Judges will be looking at how well you explain your results.
-Use charts, plots, tools like SHAP/LIME, or group breakdowns to show what’s happening inside your model, especially when it behaves unfairly.
+- **Disparate Impact**: A ratio of approval rates between unprivileged and privileged groups. Values below 0.8 suggest potential adverse impact.
 
-4. Presentation & Clarity (20 points)
-   Clear communication is key. Your README, demo video, and any supporting materials should help others understand your work without confusion. The best submissions will be organized, polished, and easy to follow, even for non-technical reviewers.
+- **False Negative Rate Difference**: The gap between groups in the rate at which positive cases are incorrectly denied. Large differences indicate missed opportunities for certain groups.
 
+- **Selection Rate Gap**: The difference in overall approval rates between groups. Significant gaps reveal unequal treatment.
 
-# 📣 Stay Connected
+### Visualization Insights
 
-Follow us for updates and highlights:
+- **Approval Rate Bar Charts**: Facilitate a direct comparison of approval rates across demographic categories.
 
-- **Website**: [Hack the Fest](https://hackthefest.com/)
+- **SHAP Summary Plots**: Reveal which features most influence the model’s decisions and in which direction.
 
-- **Devpost**: [AI Bias Bounty Hackathon](https://ai-bias-bounty-hackathon.devpost.com/)
+- **Probability Distribution Charts**: Show how confidently the model makes predictions and highlight any threshold effects.
 
+These outputs together provide a transparent view of both **how well** the model predicts and **how fairly** it treats different segments of the population.
 
-# 📚 Code of Conduct
+---
 
-We are committed to providing a welcoming and inclusive environment for all participants. Please review our [Code of Conduct](./CODE_OF_CONDUCT.md).
+## References
 
-
-# 💬 Communication
-
-Join our community via our [Slack Invite Link](https://join.slack.com/t/hackthefest/shared_invite/zt-380la7fd3-xk~zDvk~kZIrqr_HznLHbQ)
+- [Bellamy et al. (2018). AI Fairness 360: An extensible toolkit for detecting and mitigating algorithmic bias.](https://arxiv.org/abs/1810.01943)
+- [Weerts et al. (2023). Fairlearn: Assessing and Improving Fairness of AI Systems](https://arxiv.org/abs/2303.16626)
+- [Lundberg et al. (2017). A unified approach to interpreting model predictions.](https://arxiv.org/abs/1705.07874)

@@ -1,0 +1,205 @@
+{
+    "univariate": [
+        {
+            "Attribute": "Gender",
+            "Group": "Female",
+            "Approval_Rate": 0.44878048780487806,
+            "Sample_Size": 1025
+        },
+        {
+            "Attribute": "Gender",
+            "Group": "Male",
+            "Approval_Rate": 0.5714285714285714,
+            "Sample_Size": 938
+        },
+        {
+            "Attribute": "Gender",
+            "Group": "Non-binary",
+            "Approval_Rate": 0.6756756756756757,
+            "Sample_Size": 37
+        },
+        {
+            "Attribute": "Race",
+            "Group": "Asian",
+            "Approval_Rate": 0.4298245614035088,
+            "Sample_Size": 114
+        },
+        {
+            "Attribute": "Race",
+            "Group": "Black",
+            "Approval_Rate": 0.4808362369337979,
+            "Sample_Size": 287
+        },
+        {
+            "Attribute": "Race",
+            "Group": "Hispanic",
+            "Approval_Rate": 0.3782991202346041,
+            "Sample_Size": 341
+        },
+        {
+            "Attribute": "Race",
+            "Group": "Multiracial",
+            "Approval_Rate": 0.45454545454545453,
+            "Sample_Size": 44
+        },
+        {
+            "Attribute": "Race",
+            "Group": "Native American",
+            "Approval_Rate": 0.47058823529411764,
+            "Sample_Size": 17
+        },
+        {
+            "Attribute": "Race",
+            "Group": "White",
+            "Approval_Rate": 0.5655806182121972,
+            "Sample_Size": 1197
+        },
+        {
+            "Attribute": "Age_Group",
+            "Group": "25-60",
+            "Approval_Rate": 0.5116931711880262,
+            "Sample_Size": 1069
+        },
+        {
+            "Attribute": "Age_Group",
+            "Group": "Over 60",
+            "Approval_Rate": 0.4992867332382311,
+            "Sample_Size": 701
+        },
+        {
+            "Attribute": "Age_Group",
+            "Group": "Under 25",
+            "Approval_Rate": 0.5391304347826087,
+            "Sample_Size": 230
+        },
+        {
+            "Attribute": "Citizenship_Status",
+            "Group": "Citizen",
+            "Approval_Rate": 0.5194202898550725,
+            "Sample_Size": 1725
+        },
+        {
+            "Attribute": "Citizenship_Status",
+            "Group": "Permanent Resident",
+            "Approval_Rate": 0.5136612021857924,
+            "Sample_Size": 183
+        },
+        {
+            "Attribute": "Citizenship_Status",
+            "Group": "Visa Holder",
+            "Approval_Rate": 0.33695652173913043,
+            "Sample_Size": 92
+        },
+        {
+            "Attribute": "Disability_Status",
+            "Group": "No",
+            "Approval_Rate": 0.5429378531073447,
+            "Sample_Size": 1770
+        },
+        {
+            "Attribute": "Disability_Status",
+            "Group": "Yes",
+            "Approval_Rate": 0.2608695652173913,
+            "Sample_Size": 230
+        },
+        {
+            "Attribute": "Criminal_Record",
+            "Group": "No",
+            "Approval_Rate": 0.5375,
+            "Sample_Size": 1840
+        },
+        {
+            "Attribute": "Criminal_Record",
+            "Group": "Yes",
+            "Approval_Rate": 0.2,
+            "Sample_Size": 160
+        }
+    ],
+    "intersectional": {
+        "No-Female-No": 0.5030229746070133,
+        "No-Female-Yes": 0.2413793103448276,
+        "No-Male-No": 0.6419270833333334,
+        "No-Male-Yes": 0.3125,
+        "No-Non-binary-No": 0.7,
+        "Yes-Female-No": 0.21333333333333335,
+        "Yes-Male-No": 0.18181818181818182
+    },
+    "detailed_metrics": {
+        "Criminal_Record": {
+            "by_group": {
+                "selection_rate": {
+                    "No": 0.5375,
+                    "Yes": 0.2
+                },
+                "fnr": {
+                    "No": 0.3163771712158809,
+                    "Yes": 0.7017543859649122
+                }
+            },
+            "differences": {
+                "selection_rate": 0.33749999999999997,
+                "fnr": 0.38537721474903136
+            }
+        },
+        "Gender": {
+            "by_group": {
+                "selection_rate": {
+                    "Female": 0.44878048780487806,
+                    "Male": 0.5714285714285714,
+                    "Non-binary": 0.6756756756756757
+                },
+                "fnr": {
+                    "Female": 0.405152224824356,
+                    "Male": 0.28095238095238095,
+                    "Non-binary": 0.25
+                }
+            },
+            "differences": {
+                "selection_rate": 0.2268951878707976,
+                "fnr": 0.15515222482435598
+            }
+        },
+        "Disability_Status": {
+            "by_group": {
+                "selection_rate": {
+                    "No": 0.5429378531073447,
+                    "Yes": 0.2608695652173913
+                },
+                "fnr": {
+                    "No": 0.3167305236270754,
+                    "Yes": 0.5875
+                }
+            },
+            "differences": {
+                "selection_rate": 0.28206828788995336,
+                "fnr": 0.27076947637292464
+            }
+        }
+    },
+    "disparate_impact": [
+        {
+            "Attribute": "Gender",
+            "Disparate_Impact": 0.7853658536585366
+        },
+        {
+            "Attribute": "Race",
+            "Disparate_Impact": 1.2442773600668338
+        },
+        {
+            "Attribute": "Age_Group",
+            "Disparate_Impact": 0.9757541459445505
+        },
+        {
+            "Attribute": "Citizenship_Status",
+            "Disparate_Impact": 1.0112118408880666
+        },
+        {
+            "Attribute": "Disability_Status",
+            "Disparate_Impact": 2.0812617702448213
+        },
+        {
+            "Attribute": "Criminal_Record",
+            "Disparate_Impact": 2.6874999999999996
+        }
+    ]
+}
