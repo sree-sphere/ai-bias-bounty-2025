@@ -1,0 +1,14 @@
+Model Performance:
+Accuracy: 0.6260
+Balanced Accuracy: 0.6299
+AUC: 0.6752
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.70      0.60      0.65      1137
+           1       0.56      0.66      0.60       863
+
+    accuracy                           0.63      2000
+   macro avg       0.63      0.63      0.62      2000
+weighted avg       0.64      0.63      0.63      2000

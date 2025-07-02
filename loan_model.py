@@ -109,7 +109,7 @@ class LoanFairnessAnalyzer:
         plt.tight_layout()
         if save_plots:
             plt.savefig('images/categorical_analysis.png', dpi=300, bbox_inches='tight')
-        plt.show()
+        # plt.show()
         
         # B: Continuous variables analysis
         if 'Loan_Approved' in df.columns:
@@ -129,7 +129,7 @@ class LoanFairnessAnalyzer:
             plt.tight_layout()
             if save_plots:
                 plt.savefig('images/continuous_analysis.png', dpi=300, bbox_inches='tight')
-            plt.show()
+            # plt.show()
     
     def generate_bias_analysis_plots(self, df):
         """
@@ -159,7 +159,7 @@ class LoanFairnessAnalyzer:
         
         plt.tight_layout()
         plt.savefig('images/bias_visualization.png', dpi=300, bbox_inches='tight')
-        plt.show()
+        # plt.show()
         
     def prepare_features(self, df):
         """
@@ -177,6 +177,8 @@ class LoanFairnessAnalyzer:
         drop_cols = ['ID', 'Zip_Code_Group', 'Loan_Approved']
         X = df.drop(columns=drop_cols, errors='ignore')
         y = df['Loan_Approved'] if 'Loan_Approved' in df.columns else None
+        
+        self._raw_X = X.copy()
         
         # Binary encode sensitive attributes with 2 levels
         for col in self.sensitive_attrs:
@@ -229,6 +231,9 @@ class LoanFairnessAnalyzer:
         self.explainer = shap.LinearExplainer(base_model, X_train_scaled, feature_perturbation="correlation_dependent")
         shap_values = self.explainer.shap_values(X_train_scaled)
         
+        # Convert one-hot encoded columns to names
+        onehot_cols = pd.get_dummies(self._raw_X, drop_first=True).columns.tolist()
+        
         # Finding feature importance based on SHAP values
         mean_abs_shap = np.abs(shap_values).mean(axis=0)
         shap_df = pd.DataFrame({'feature': X.columns, 'importance': mean_abs_shap})
@@ -237,9 +242,15 @@ class LoanFairnessAnalyzer:
         # Get top features
         self.top_features = shap_df.head(n_features)['feature'].tolist()
         
-        # Generate SHAP plots
+        # Generate SHAP plots using the one‑hot names
         plt.figure(figsize=(10, 8))
-        shap.summary_plot(shap_values, features=X_train_scaled, feature_names=X.columns, max_display=10, show=False)
+        shap.summary_plot(
+            shap_values,
+            features=X_train_scaled,
+            feature_names=onehot_cols, # changed to one-hot encoded names
+            max_display=10,
+            show=False
+        )
         plt.tight_layout()
         plt.savefig('images/shap_feature_importance.png', dpi=300, bbox_inches='tight')
         plt.show()
@@ -284,6 +295,25 @@ class LoanFairnessAnalyzer:
         print(f"AUC: {roc_auc_score(y_test, y_pred_proba):.4f}")
         print("\nClassification Report:")
         print(classification_report(y_test, y_pred))
+        
+        accuracy = accuracy_score(y_test, y_pred)
+        balanced_accuracy = balanced_accuracy_score(y_test, y_pred)
+        auc = roc_auc_score(y_test, y_pred_proba)
+
+        output = (
+            f"Model Performance:\n"
+            f"Accuracy: {accuracy:.4f}\n"
+            f"Balanced Accuracy: {balanced_accuracy:.4f}\n"
+            f"AUC: {auc:.4f}\n\n"
+            "Classification Report:\n"
+            f"{classification_report(y_test, y_pred)}"
+        )
+
+        print(output)
+
+        with open('results/model_performance.txt', 'w') as f:
+            f.write(output)
+        
         
         return X_train, X_test, y_train, y_test, y_pred, y_pred_proba
     
@@ -515,7 +545,7 @@ class LoanFairnessAnalyzer:
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
         plt.savefig('images/probability_distribution.png', dpi=300, bbox_inches='tight')
-        plt.show()
+        # plt.show()
         
         print("All visualizations saved to images/ folder")
     

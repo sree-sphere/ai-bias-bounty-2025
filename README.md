@@ -2,6 +2,8 @@
 
 A comprehensive ML project that predicts loan approvals while detecting and analyzing algorithmic bias across demographic groups.
 
+[Runthrough Video Link](https://drive.google.com/file/d/13BZb6elftSa1GwGODAS0uPpqdqdnTPTy/view?usp=sharing)
+
 ## Problem Statement
 
 The financial sector has long faced scrutiny over systemic inequities embedded in its decision-making processes, particularly in loan approvals. Mortgage lending, in particular, reveals deeply entrenched disparities across race, gender, age, and geography. In response to increasing demand for fairness in AI-powered decision systems, this track is designed to simulate a real-world audit scenario, where participants step into the role of ethical model builders, bias investigators, and fairness advocates. 
@@ -41,7 +43,7 @@ Note: More elaborated explanation on my approach and findings in Additional_Repo
 
 #### Bias Detection Methods
 - **Univariate Analysis**: Approval rates across individual demographic groups
-- **Intersectional Analysis**: Multi-dimensional bias detection (e.g., Gender × Race × Disability)
+- **Intersectional Analysis**: Multi-dimensional bias detection (Criminal_Record x Gender x Disability_Status)
 - **Disparate Impact**: Statistical parity assessment using AIF360 metrics
 - **False Positive/Negative Rates**: Error rate disparities across groups
 
