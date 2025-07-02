@@ -127,7 +127,7 @@ ai-bias-bounty-2025/
 2. **Install dependencies**
    ```bash
    pip install -r requirements.txt
-   pip install \'aif360[AdversarialDebiasing]\' \'aif360[inFairness]\'
+   pip install 'aif360[AdversarialDebiasing]' 'aif360[inFairness]'
    ```
 
 3. **Run the model**
