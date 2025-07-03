@@ -76,8 +76,8 @@ The analysis reveals several concerning patterns:
 - **numpy**: Numerical computations
 
 ### Fairness & Bias Detection
-- **AIF360**: IBM's comprehensive fairness toolkit
-- **Fairlearn**: Microsoft's fairness assessment library
+- **AIF360**: IBM's fairness toolkit for computing disparate impact
+- **Fairlearn**: Microsoft's fairness assessment library for evaluating selection rate and false negative rate across sensitive attributes
 - **SHAP**: Model explainability and feature importance
 
 ### Visualization & Analysis
@@ -146,12 +146,7 @@ ai-bias-bounty-2025/
      - `ID` — identifier for each test record  
      - `LoanApproved` — model prediction (0 = Denied, 1 = Approved)
 
-2. **bias_visualization.png**  
-   - A publication‑quality figure summarizing key bias findings  
-   - Includes bar charts of approval rates across demographic groups  
-   - All axes are labeled and statistical annotations are provided
-
-3. **training_results.csv**  
+2. **model_training_results.csv**  
    - Detailed model outputs on the training set  
    - Columns include:  
      - True labels and predicted labels  
@@ -160,14 +155,18 @@ ai-bias-bounty-2025/
 
 ### Additional Analysis Files
 
-- **results/fairness_analysis.csv**  
+- **results/fairness_analysis.json**  
   - Fairness metrics computed for each sensitive group (selection rate, false negative rate, disparate impact)
 
 - **results/trained_model.pkl**  
-  - Serialized `LogisticRegression` model and preprocessing pipeline for reproducibility
+  - Serialized `LogisticRegression` model and preprocessing pipeline components (`StandardScaler`, `KNNImputer`) for reproducibility
 
 - **images/**  
-  - A comprehensive set of charts for bias analysis and model explainability  
+  - A collection of visualizations capturing:
+     - EDA for categorical and continuous features
+     - Loan approval rate disparities by sensitive attributes
+     - SHAP-based feature importance
+     - Predicted probability distribution
 
 ---
 
@@ -175,27 +174,43 @@ ai-bias-bounty-2025/
 
 ### Model Performance
 
-- **Accuracy** The overall proportion of correct predictions.
+- **Accuracy**: The final logistic regression model achieved an accuracy of **63.15%**, which reflects a moderately reliable classification of loan approvals.
+- **Balanced Accuracy**: At **63.4%**, it suggests the model handles both classes reasonably well despite some class imbalance.
+- **AUC‑ROC**: With an AUC of **0.6777**, the model shows fair discrimination capability between approved and denied loans.
 
-- **Balanced Accuracy**: The average of sensitivity (true positive rate) and specificity (true negative rate), accounting for class imbalance.
+### Fairness Metrics & Bias Insights
 
-- **AUC‑ROC**: The model’s ability to distinguish between approved and denied cases across all classification thresholds.
+- **Disparate Impact**:
+  - Applicants with disabilities faced a **disparate impact ratio of 2.04**, suggesting their approval rate is significantly lower than those without disabilities.
+  - Individuals with a criminal record experienced the most extreme disparity, with a **disparate impact of 2.81**. This may reflect embedded policies but still indicates a significant access gap.
 
-### Fairness Metrics
+- **Univariate Approval Gaps**:
+  - **Gender**: Males had noticeably higher predicted approval rates than females and non-binary applicants.
+  - **Race**: Black and Hispanic applicants had the lowest predicted approval rates, raising fairness concerns.
+  - **Citizenship**: Approval likelihood decreased consistently from Citizens to Visa Holders.
+  - **Disability & Criminal Record**: Disabled applicants and those with a criminal record had much lower approval probabilities—disparities unlikely to be explained by feature differences alone.
 
-- **Disparate Impact**: A ratio of approval rates between unprivileged and privileged groups. Values below 0.8 suggest potential adverse impact.
+- **Intersectional Analysis**:
+  - Intersection of multiple attributes compounds bias. For example, **'No-Male-No'** had a predicted approval rate of **66%**, while **'Yes-Female-No'** dropped to **16%**—a stark contrast.
+  - **Non-binary disabled or criminal-record-holding applicants** saw the lowest predicted rates, often below **27%**.
 
-- **False Negative Rate Difference**: The gap between groups in the rate at which positive cases are incorrectly denied. Large differences indicate missed opportunities for certain groups.
+- **MetricFrame Disparities**:
+  - **Gender**: Males had both higher selection rates (**0.59**) and lower false negative rates (**0.25**) compared to others.
+  - **Criminal Record**: Those with a record saw a drastic drop in selection rate (**0.19**) and a spike in false negatives (**0.73**).
+  - **Disability Status**: Similarly, those with disabilities had significantly lower selection rates and higher false negative rates.
 
-- **Selection Rate Gap**: The difference in overall approval rates between groups. Significant gaps reveal unequal treatment.
+### Key Behavioral Findings
+
+- **Criminal record-related disparities are most strongly aligned with race**, not gender.
+- **Loan amounts** across demographic groups did not differ significantly—indicating that denial gaps are not solely driven by financial asks.
+- **Low-income applicants** (bottom 20%) had uniformly low approval rates (<30%), regardless of gender.
+- The intersection of **Disability and Criminal Record** status represents the most marginalized subgroup—with just **24.5%** approval.
 
 ### Visualization Insights
 
-- **Approval Rate Bar Charts**: Facilitate a direct comparison of approval rates across demographic categories.
-
-- **SHAP Summary Plots**: Reveal which features most influence the model’s decisions and in which direction.
-
-- **Probability Distribution Charts**: Show how confidently the model makes predictions and highlight any threshold effects.
+- **Approval Rate Charts**: Highlight demographic-based disparities and help surface unbalanced model behavior.
+- **SHAP Feature Importance**: Revealed `Credit Score`, `Income`, and `Gender_Male` as top predictors—making the model's decision-making traceable.
+- **Prediction Probability Distributions**: Provided clarity into model confidence and decision thresholds, especially around marginalized groups.
 
 These outputs together provide a transparent view of both **how well** the model predicts and **how fairly** it treats different segments of the population.
 
